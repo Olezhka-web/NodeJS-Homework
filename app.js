@@ -31,7 +31,7 @@ app.post('/register', (req, res) => {
         if (data.toString() !== ''){
             let searchUser = arrUsers.find(user => user.email === req.body.email);
             if(searchUser){
-                res.render('error', {existingEmail: 'Error! User with this nickname is already registered. Please choose another nickname or if this is your registered nickname, please log in to your account.'});
+                res.render('error', {error: 'Error! User with this nickname is already registered. Please choose another nickname or if this is your registered nickname, please log in to your account.'});
             }
             else{
                 arrUsers.push(req.body);
@@ -86,13 +86,13 @@ app.post('/login', (req, res) => {
                 res.redirect(`/user/${searchUserDb}`);
             } else {
                 if (!searchUserEmail) {
-                    res.render('error', {noUsers: 'There is no user with this email. Please register'});
+                    res.render('error', {error: 'There is no user with this email. Please register'});
                 } else {
-                    res.render('error', {invPassword: 'Invalid password'});
+                    res.render('error', {error: 'Invalid password'});
                 }
             }
         }else{
-            res.render('error', {noUsers: 'There is no user with this email. Please register'});
+            res.render('error', {error: 'There is no user with this email. Please register'});
         }
     });
 });
