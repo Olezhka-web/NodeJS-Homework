@@ -1,13 +1,14 @@
 const errorCodes = require('../constants/errorCodes.enum');
-const errorMessages = require('../errors/error.messages');
+const errorMessages = require('../messages/messages');
 
 module.exports = {
     checkIsIdValid: (req, res, next) => {
         try {
             const userId = +req.params.userId;
+            const { preferL = 'en' } = req.body;
 
             if (userId < 0 || !Number.isInteger(userId) || Number.isNaN(userId)) {
-                throw new Error('Not Valid ID');
+                throw new Error(errorMessages.INVALID_ID[preferL]);
             }
 
             next();
@@ -18,10 +19,15 @@ module.exports = {
 
     isUserValid: (req, res, next) => {
         try {
-            const { email, nickname,password, preferL = 'en' } = req.body;
+            const {email, nickname, password, preferL = 'en'} = req.body;
+            const checkEmail = email.includes('@');
 
             if (!email || !nickname || !password) {
-                throw new Error('Some filed is empty');
+                throw new Error(errorMessages.EMPTY_FIELD[preferL]);
+            }
+
+            if (!checkEmail) {
+                throw new Error(errorMessages.INVALID_EMAIL[preferL]);
             }
 
             if (password.length < 6) {
@@ -33,4 +39,4 @@ module.exports = {
             res.status(errorCodes.BAD_REQUEST).json(e.message);
         }
     }
-}
+};

@@ -11,5 +11,4 @@ app.use('/', apiRouter);
 
 app.listen(5000, () => {
     console.log('App is ready on port 5000');
-})
-
+});

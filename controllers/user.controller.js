@@ -1,33 +1,44 @@
 const userService = require('../services/user.service');
+const messages = require('../messages/messages');
+const errorCodes = require('../constants/errorCodes.enum');
 
 module.exports = {
     getAllUsers: async (req, res) => {
         try {
-            const users = await userService.allUsers();
-            console.log(users);
-            res.json(users);
+            const { preferL } = req.body;
+            const ObjectQuery = req.query;
+
+            const users = await userService.allUsers(preferL, ObjectQuery);
+
+            res.status(errorCodes.OK).json(users);
         } catch (e) {
-            res.status(418).json(e.message);
+            res.status(errorCodes.BAD_REQUEST).json(e.message);
         }
     },
 
     createUser: async (req, res) => {
-        await userService.createUser(req.body);
+        try {
+            const {email, nickname, password, preferL = 'en'} = req.body;
+            const userObject = {email, nickname, password, preferL};
 
-        res.status(201).json('USERS IS CREATED');
+            await userService.createUser(userObject);
+
+            res.status(errorCodes.CREATED).json(messages.USER_IS_CREATED[preferL]);
+        } catch (e) {
+            res.status(errorCodes.BAD_REQUEST).json(e.message);
+        }
     },
 
-    deleteUser: async (req, res) =>{
-        const { userId } = req.params;
-        await userService.deleteUser(userId);
-        res.status(404).json('USER DELETED');
+    deleteUser: async (req, res) => {
+        try {
+            const { userId } = req.params;
+            const { preferL = 'en' } = req.body;
+
+            await userService.deleteUser(userId);
+
+            res.status(errorCodes.OK).json(messages.USER_IS_DELETED[preferL]);
+        } catch (error) {
+            res.status(errorCodes.BAD_REQUEST).json(error.message);
+        }
     },
-
-    getSingleUser: (req, res) => {
-        const { userId } = req.params;
-
-        const user = userService.findUserById(userId);
-
-        res.json(user);
-    }
-}
+};
