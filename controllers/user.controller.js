@@ -18,8 +18,12 @@ module.exports = {
 
     createUser: async (req, res) => {
         try {
-            const {email, nickname, password, preferL = 'en'} = req.body;
-            const userObject = {email, nickname, password, preferL};
+            const {
+                email, nickname, password, preferL = 'en'
+            } = req.body;
+            const userObject = {
+                email, nickname, password, preferL
+            };
 
             await userService.createUser(userObject);
 

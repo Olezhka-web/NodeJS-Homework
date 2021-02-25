@@ -19,7 +19,9 @@ module.exports = {
 
     isUserValid: (req, res, next) => {
         try {
-            const {email, nickname, password, preferL = 'en'} = req.body;
+            const {
+                email, nickname, password, preferL = 'en'
+            } = req.body;
             const checkEmail = email.includes('@');
 
             if (!email || !nickname || !password) {

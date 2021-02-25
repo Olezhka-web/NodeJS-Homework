@@ -4,8 +4,8 @@ module.exports = {
         ua: 'Користувача створено'
     },
     USER_IS_REGISTER: {
-        en: 'User with this email is already registered. Please choose another email or if this is your registered email, please log in to your account.',
-        ua: 'Користувач з такою поштою вже зареєстрований. Будь ласка, виберіть іншу пошту або якщо ця пошта Ваша, то зайді у свій аккаунт.'
+        en: 'User with this email is already registered',
+        ua: 'Користувач з такою поштою вже зареєстрований'
     },
     USER_IS_DELETED: {
         en: 'User deleted',
@@ -30,5 +30,13 @@ module.exports = {
     NO_USER: {
         en: 'There is no user',
         ua: 'Немає жодного короистувача'
+    },
+    NO_EMAIL: {
+        en: 'There is no user with this email',
+        ua: 'Користувача з такою поштою не існує'
+    },
+    NO_NICKNAME: {
+        en: 'There are no users with this nickname',
+        ua: 'Користувачів з таким іменем не існує'
     }
 };
