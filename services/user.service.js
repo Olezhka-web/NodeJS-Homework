@@ -18,6 +18,7 @@ module.exports = {
         if (email) {
             const array = JSON.parse(readFileUsers.toString());
             const searchEmail = array.filter((value) => value.email === email);
+
             if (searchEmail) {
                 return searchEmail;
             }
@@ -38,6 +39,7 @@ module.exports = {
 
     createUser: async (userObject) => {
         const readFileUsers = await readFilePromise(path.join(__dirname, '../db/users.txt'));
+
         if (readFileUsers.toString() === '') {
             const users = [];
             users.push(userObject);
