@@ -10,6 +10,7 @@ module.exports = {
     allUsers: async (preferL, ObjectQuery) => {
         const { email, nickname } = ObjectQuery;
         const readFileUsers = await readFilePromise(path.join(__dirname, '../db/users.txt'));
+
         if (readFileUsers.toString() === '') {
             throw new Error(errorMessages.NO_USER[preferL]);
         }
